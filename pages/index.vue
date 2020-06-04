@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div v-for="message in messages" :key="message.ts" class="mb-3">
+    <div
+      v-for="message in this.$store.state.messages.list"
+      :key="message.ts"
+      class="mb-3"
+    >
       <MessageCard :message="message" />
     </div>
     <MessageForm />
@@ -16,13 +20,13 @@ export default {
     MessageCard,
     MessageForm
   },
-  async asyncData({ app }) {
+  async asyncData({ app, store }) {
     const url = `https://slack.com/api/conversations.history?channel=${process.env.CONVERSATION_ID}`
     const headers = {
       Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
     }
-    const messages = await app.$axios.$get(url, { headers })
-    return messages
+    const response = await app.$axios.$get(url, { headers })
+    store.commit('messages/fetch', response.messages)
   }
 }
 </script>
