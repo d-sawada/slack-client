@@ -1,5 +1,6 @@
 export const state = () => ({
-  list: []
+  list: [],
+  isDisplayThread: false
 })
 
 export const mutations = {
@@ -8,6 +9,12 @@ export const mutations = {
   },
   add(state, message) {
     state.list.push(message)
+  },
+  openThread(state) {
+    state.isDisplayThread = true
+  },
+  closeThread(state) {
+    state.isDisplayThread = false
   }
 }
 

@@ -30,10 +30,10 @@ export default {
   },
   methods: {
     viewThread(threadTs) {
-      console.log('viewThread method', threadTs)
+      this.$store.commit('messages/openThread')
     },
     replyToThread() {
-      console.log('replyToThread')
+      this.$store.commit('messages/openThread')
     }
   }
 }
