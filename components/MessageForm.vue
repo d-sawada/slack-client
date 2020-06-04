@@ -35,7 +35,20 @@ export default {
       if (this.messageContent === '') {
         return
       }
-      console.log('submitMessage:', this.messageContent)
+      const token = process.env.ACCESS_TOKEN
+      const channel = process.env.CONVERSATION_ID
+      const text = this.messageContent
+      const url = `https://slack.com/api/chat.postMessage?&channel=${channel}&text=${text}&token=${token}`
+
+      // TODO: getではなくpostメソッドに書き換える
+      this.$axios
+        .$get(url, {
+          token,
+          channel,
+          text
+        })
+        .then((res) => console.log(res))
+
       this.$refs.form.reset()
     }
   }
