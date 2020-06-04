@@ -2,6 +2,10 @@
 
 > NuxtキャッチアップのためにSlackAPIを利用してCRUDするプロジェクト
 
+# 作るもの
+![Nuxt Slack client-2 2](https://user-images.githubusercontent.com/49185403/83705769-befbf800-a650-11ea-9313-e627b0ca3114.jpg)
+
+
 ## Build Setup
 
 ```bash
