@@ -41,13 +41,11 @@ export default {
       const url = `https://slack.com/api/chat.postMessage?&channel=${channel}&text=${text}&token=${token}`
 
       // TODO: getではなくpostメソッドに書き換える
-      this.$axios
-        .$get(url, {
-          token,
-          channel,
-          text
-        })
-        .then((res) => console.log(res))
+      this.$axios.$get(url, {
+        token,
+        channel,
+        text
+      })
 
       this.$refs.form.reset()
     }
