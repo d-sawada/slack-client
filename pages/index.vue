@@ -3,15 +3,18 @@
     <div v-for="message in messages" :key="message.ts" class="mb-3">
       <MessageCard :message="message" />
     </div>
+    <MessageForm />
   </div>
 </template>
 
 <script>
 import MessageCard from '../components/MessageCard'
+import MessageForm from '../components/MessageForm'
 
 export default {
   components: {
-    MessageCard
+    MessageCard,
+    MessageForm
   },
   async asyncData({ app }) {
     const messages = await app.$axios.$get(
