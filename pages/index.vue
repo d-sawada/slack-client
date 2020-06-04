@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-for="message in this.$store.state.messages.list"
+      v-for="message in this.$store.getters['messages/orderByTimestampDesc']"
       :key="message.ts"
       class="mb-3"
     >

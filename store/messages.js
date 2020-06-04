@@ -10,3 +10,11 @@ export const mutations = {
     state.list.push(message)
   }
 }
+
+export const getters = {
+  orderByTimestampDesc(state) {
+    return [...state.list].sort((a, b) => {
+      return a.ts < b.ts ? -1 : 1
+    })
+  }
+}
