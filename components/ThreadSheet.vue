@@ -27,18 +27,22 @@ export default {
       messages: []
     }
   },
-  // TODO: created? mounted?
-  mounted() {
-    const url = `https://slack.com/api/conversations.replies`
-    this.$axios
-      .$get(url, {
-        params: {
-          token: process.env.ACCESS_TOKEN,
-          channel: process.env.CONVERSATION_ID,
-          ts: this.thread.ts
-        }
-      })
-      .then((res) => (this.messages = res.messages))
+  watch: {
+    thread: {
+      handler() {
+        const url = `https://slack.com/api/conversations.replies`
+        this.$axios
+          .$get(url, {
+            params: {
+              token: process.env.ACCESS_TOKEN,
+              channel: process.env.CONVERSATION_ID,
+              ts: this.thread.ts
+            }
+          })
+          .then((res) => (this.messages = res.messages))
+      },
+      immediate: true
+    }
   },
   methods: {
     hide() {
