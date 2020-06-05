@@ -16,5 +16,8 @@ export const getters = {
     return [...state.list].sort((a, b) => {
       return a.ts < b.ts ? -1 : 1
     })
+  },
+  findByTimestamp: (state) => (timestamp) => {
+    return state.list.find((message) => message.ts === timestamp)
   }
 }
