@@ -5,10 +5,10 @@
         {{ message.text }}
       </v-card-subtitle>
       <v-card-actions>
-        <v-btn v-if="message.reply_count" text @click="viewThread(message)">
+        <v-btn v-if="message.reply_count" text @click="displayThread(message)">
           {{ message.reply_count }}件の返信
         </v-btn>
-        <v-icon v-if="hover" small @click="replyToThread(message.ts)">
+        <v-icon v-if="hover" small @click="displayThread(message)">
           mdi-chat-outline
         </v-icon>
       </v-card-actions>
@@ -25,11 +25,8 @@ export default {
     }
   },
   methods: {
-    viewThread(message) {
+    displayThread(message) {
       this.$emit('displayThread', message)
-    },
-    replyToThread(ts) {
-      console.log('replyToThread:', ts)
     }
   }
 }

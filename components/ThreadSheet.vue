@@ -35,7 +35,7 @@ export default {
         params: {
           token: process.env.ACCESS_TOKEN,
           channel: process.env.CONVERSATION_ID,
-          ts: this.thread.thread_ts
+          ts: this.thread.ts
         }
       })
       .then((res) => (this.messages = res.messages))
