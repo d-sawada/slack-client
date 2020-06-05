@@ -12,7 +12,7 @@
         >
           {{ message.reply_count }}件の返信
         </v-btn>
-        <v-icon v-if="hover" small @click="replyToThread()">
+        <v-icon v-if="hover" small @click="replyToThread(message.ts)">
           mdi-chat-outline
         </v-icon>
       </v-card-actions>
@@ -30,10 +30,10 @@ export default {
   },
   methods: {
     viewThread(threadTs) {
-      this.$store.commit('messages/openThread')
+      this.$store.commit('messages/openThread', threadTs)
     },
-    replyToThread() {
-      this.$store.commit('messages/openThread')
+    replyToThread(ts) {
+      console.log('replyToThread:', ts)
     }
   }
 }

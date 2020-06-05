@@ -14,7 +14,7 @@
         <MessageForm />
       </v-col>
       <v-col :cols="this.$store.state.messages.isDisplayThread ? 4 : 0">
-        <ThreadSheet />
+        <ThreadSheet v-if="this.$store.state.messages.isDisplayThread" />
       </v-col>
     </v-row>
   </div>

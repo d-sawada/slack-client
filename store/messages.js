@@ -1,6 +1,7 @@
 export const state = () => ({
   list: [],
-  isDisplayThread: false
+  isDisplayThread: false,
+  threadMessage: { text: '' }
 })
 
 export const mutations = {
@@ -10,11 +11,15 @@ export const mutations = {
   add(state, message) {
     state.list.push(message)
   },
-  openThread(state) {
+  openThread(state, ts) {
     state.isDisplayThread = true
+    state.threadMessage = state.list.find((message) => {
+      return message.ts === ts
+    })
   },
   closeThread(state) {
     state.isDisplayThread = false
+    state.threadMessage = { text: '' }
   }
 }
 
@@ -23,5 +28,8 @@ export const getters = {
     return [...state.list].sort((a, b) => {
       return a.ts < b.ts ? -1 : 1
     })
+  },
+  findByTimestamp: (state) => (timestamp) => {
+    return state.list.find((message) => message.ts === timestamp)
   }
 }
