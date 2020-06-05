@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col :cols="this.$store.state.messages.isDisplayThread ? 8 : 12">
+      <v-col :cols="isDisplayThread ? 8 : 12">
         <div
           v-for="message in this.$store.getters[
             'messages/orderByTimestampDesc'
@@ -9,12 +9,16 @@
           :key="message.ts"
           class="mb-3"
         >
-          <MessageCard :message="message" />
+          <MessageCard :message="message" @displayThread="displayThread" />
         </div>
         <MessageForm />
       </v-col>
-      <v-col :cols="this.$store.state.messages.isDisplayThread ? 4 : 0">
-        <ThreadSheet v-if="this.$store.state.messages.isDisplayThread" />
+      <v-col col="4">
+        <ThreadSheet
+          v-if="isDisplayThread"
+          :thread="displayingMessage"
+          @hide="hideThread()"
+        />
       </v-col>
     </v-row>
   </div>
@@ -39,9 +43,20 @@ export default {
     const response = await app.$axios.$get(url, { headers })
     store.commit('messages/fetch', response.messages)
   },
+  data() {
+    return {
+      isDisplayThread: false,
+      displayingMessage: {}
+    }
+  },
   methods: {
-    toggle() {
-      this.$store.commit('messages/toggleThread')
+    displayThread(message) {
+      this.isDisplayThread = true
+      this.displayingMessage = message
+    },
+    hideThread() {
+      this.isDisplayThread = false
+      this.displayingMessage = {}
     }
   }
 }

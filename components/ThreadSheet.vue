@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-sheet>
-      <v-icon @click="closeThread()">mdi-close</v-icon>
+      <v-icon @click="hide()">mdi-close</v-icon>
       <div v-for="message in messages" :key="message.ts">
         <MessageCard :message="message" />
       </div>
@@ -16,6 +16,12 @@ export default {
   components: {
     MessageCard
   },
+  props: {
+    thread: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       messages: []
@@ -29,14 +35,14 @@ export default {
         params: {
           token: process.env.ACCESS_TOKEN,
           channel: process.env.CONVERSATION_ID,
-          ts: this.$store.state.messages.threadMessage.thread_ts
+          ts: this.thread.thread_ts
         }
       })
       .then((res) => (this.messages = res.messages))
   },
   methods: {
-    closeThread() {
-      this.$store.commit('messages/closeThread')
+    hide() {
+      this.$emit('hide')
     }
   }
 }

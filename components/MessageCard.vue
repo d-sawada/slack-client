@@ -5,11 +5,7 @@
         {{ message.text }}
       </v-card-subtitle>
       <v-card-actions>
-        <v-btn
-          v-if="message.reply_count"
-          text
-          @click="viewThread(message.thread_ts)"
-        >
+        <v-btn v-if="message.reply_count" text @click="viewThread(message)">
           {{ message.reply_count }}件の返信
         </v-btn>
         <v-icon v-if="hover" small @click="replyToThread(message.ts)">
@@ -29,8 +25,8 @@ export default {
     }
   },
   methods: {
-    viewThread(threadTs) {
-      this.$store.commit('messages/openThread', threadTs)
+    viewThread(message) {
+      this.$emit('displayThread', message)
     },
     replyToThread(ts) {
       console.log('replyToThread:', ts)
