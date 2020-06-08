@@ -19,5 +19,9 @@ export const getters = {
   },
   findByTimestamp: (state) => (timestamp) => {
     return state.list.find((message) => message.ts === timestamp)
+  },
+  filterByContent: (state) => (content) => {
+    const search = new RegExp(content)
+    return state.list.filter((message) => message.text.match(search))
   }
 }
