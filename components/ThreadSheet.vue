@@ -5,16 +5,19 @@
       <div v-for="message in messages" :key="message.ts">
         <MessageCard :message="message" />
       </div>
+      <ReplyMessageForm :thread="thread" @postReply="updateThread" />
     </v-sheet>
   </div>
 </template>
 
 <script>
 import MessageCard from '../components/MessageCard'
+import ReplyMessageForm from '../components/ReplyMessageForm'
 
 export default {
   components: {
-    MessageCard
+    MessageCard,
+    ReplyMessageForm
   },
   props: {
     thread: {
@@ -47,6 +50,9 @@ export default {
   methods: {
     hide() {
       this.$emit('hide')
+    },
+    updateThread(message) {
+      this.messages.push(message)
     }
   }
 }

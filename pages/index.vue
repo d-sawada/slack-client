@@ -11,7 +11,7 @@
         >
           <MessageCard :message="message" @displayThread="displayThread" />
         </div>
-        <MessageForm />
+        <MainMessageForm />
       </v-col>
       <v-col col="4">
         <ThreadSheet
@@ -26,13 +26,13 @@
 
 <script>
 import MessageCard from '../components/MessageCard'
-import MessageForm from '../components/MessageForm'
+import MainMessageForm from '../components/MainMessageForm'
 import ThreadSheet from '../components/ThreadSheet'
 
 export default {
   components: {
     MessageCard,
-    MessageForm,
+    MainMessageForm,
     ThreadSheet
   },
   async asyncData({ app, store }) {
