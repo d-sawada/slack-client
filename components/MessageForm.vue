@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="form" @submit.prevent="submitMessage()">
+  <v-form ref="form" @submit.prevent="notifySubmit(messageContent)">
     <v-textarea
       v-model="messageContent"
       outlined
@@ -8,7 +8,7 @@
       row-height="1"
       hide-details
       class="mb-1"
-      @keydown.ctrl.enter.tab="submitMessage()"
+      @keydown.ctrl.enter.tab="notifySubmit(messageContent)"
     />
     <div class="d-flex flex-row-reverse">
       <v-btn :disabled="!disabled" type="submit" color="primary" depressed>
@@ -31,26 +31,8 @@ export default {
     }
   },
   methods: {
-    submitMessage() {
-      if (this.messageContent === '') {
-        return
-      }
-      const token = process.env.ACCESS_TOKEN
-      const channel = process.env.CONVERSATION_ID
-      const text = this.messageContent
-      const url = `https://slack.com/api/chat.postMessage?&channel=${channel}&text=${text}&token=${token}`
-
-      // TODO: getではなくpostメソッドに書き換える
-      this.$axios
-        .$get(url, {
-          token,
-          channel,
-          text
-        })
-        .then((response) => {
-          this.$store.commit('messages/add', response.message)
-        })
-      this.$refs.form.reset()
+    notifySubmit(content) {
+      this.$emit('submit', content)
     }
   }
 }
