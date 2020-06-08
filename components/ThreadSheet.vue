@@ -5,19 +5,19 @@
       <div v-for="message in messages" :key="message.ts">
         <MessageCard :message="message" />
       </div>
-      <ReplyForm :thread="thread" />
+      <ReplyMessageForm :thread="thread" />
     </v-sheet>
   </div>
 </template>
 
 <script>
 import MessageCard from '../components/MessageCard'
-import ReplyForm from '../components/ReplyForm'
+import ReplyMessageForm from '../components/ReplyMessageForm'
 
 export default {
   components: {
     MessageCard,
-    ReplyForm
+    ReplyMessageForm
   },
   props: {
     thread: {
