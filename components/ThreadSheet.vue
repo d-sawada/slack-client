@@ -5,7 +5,7 @@
       <div v-for="message in messages" :key="message.ts">
         <MessageCard :message="message" />
       </div>
-      <ReplyMessageForm :thread="thread" />
+      <ReplyMessageForm :thread="thread" @postReply="updateThread" />
     </v-sheet>
   </div>
 </template>
@@ -50,6 +50,9 @@ export default {
   methods: {
     hide() {
       this.$emit('hide')
+    },
+    updateThread(message) {
+      this.messages.push(message)
     }
   }
 }
