@@ -33,6 +33,7 @@ export default {
   methods: {
     notifySubmit(content) {
       this.$emit('submit', content)
+      this.messageContent = ''
     }
   }
 }
