@@ -1,5 +1,5 @@
 <template>
-  <MessageForm />
+  <MessageForm @submit="submitMessage" />
 </template>
 
 <script>
@@ -19,19 +19,12 @@ export default {
     }
   },
   methods: {
-    submitMessage() {
-      if (this.messageContent === '') {
-        return
-      }
-      const url = `https://slack.com/api/chat.postMessage
-                  ?channel=${process.env.CONVERSATION_ID}
-                  &text=${this.messageContent}
-                  &token=${process.env.ACCESS_TOKEN}`
+    submitMessage(content) {
+      const url = `https://slack.com/api/chat.postMessage?channel=${process.env.CONVERSATION_ID}&text=${content}&token=${process.env.ACCESS_TOKEN}`
       // TODO: getではなくpostメソッドに書き換える
       this.$axios.$get(url).then((response) => {
         this.$store.commit('messages/add', response.message)
       })
-      this.$refs.form.reset()
     }
   }
 }
