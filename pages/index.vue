@@ -2,13 +2,13 @@
   <div>
     <v-row>
       <v-col :cols="isDisplayThread ? 8 : 12">
-        <div
-          v-for="message in this.$store.getters[
-            'messages/orderByTimestampDesc'
-          ]"
-          :key="message.ts"
-          class="mb-3"
-        >
+        <v-text-field
+          v-model="searchText"
+          solo
+          prepend-inner-icon="mdi-magnify"
+          placeholder="メッセージを検索"
+        />
+        <div v-for="message in messages" :key="message.ts" class="mb-3">
           <MessageCard :message="message" @displayThread="displayThread" />
         </div>
         <MainMessageForm />
@@ -46,7 +46,13 @@ export default {
   data() {
     return {
       isDisplayThread: false,
-      displayingMessage: {}
+      displayingMessage: {},
+      searchText: ''
+    }
+  },
+  computed: {
+    messages() {
+      return this.$store.getters['messages/filterByContent'](this.searchText)
     }
   },
   methods: {
